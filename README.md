@@ -7,7 +7,8 @@
 3. Trần Quốc Việt - 20190075
 
 ## Tuần 1
-- Usecase Diagram và Usecase Specification
-- Activity Diagram
-- Communication Diagram
-- Sequence Diagram
+- [Usecase Diagram và Usecase Specification](/Usecase)
+- [Activity Diagram](/Activity%20Diagram)
+- [Communication Diagram](/Communication%20Diagram)
+- [Sequence Diagram](/Sequence%20Diagram)
+- [SRS Document](/SRS.pdf)
