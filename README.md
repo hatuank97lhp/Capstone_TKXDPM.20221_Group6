@@ -12,3 +12,9 @@
 - [Communication Diagram](/Communication%20Diagram)
 - [Sequence Diagram](/Sequence%20Diagram)
 - [SRS Document](/SRS.pdf)
+
+
+## Tuần 2
+- [Analysis Diagram](/Analysis%20Diagram/)
+- [Class design](/Class%20design/)
+- [Interface design](/Interface%20design/)
