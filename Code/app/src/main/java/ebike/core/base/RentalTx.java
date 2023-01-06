@@ -21,4 +21,7 @@ public interface RentalTx {
 
     public RentalTxStatus getRentalTxStatus();
 
+    public PaymentTx getRentVehiclePaymentTx();
+
+    public PaymentTx getReturnVehiclePaymentTx();
 }
