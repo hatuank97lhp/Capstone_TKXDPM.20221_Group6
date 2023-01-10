@@ -76,7 +76,7 @@ public class RentalBikeAppService implements ApplicationService, IRentalBikeAppS
         b.currentBattery = bike.getCurrentBattery();
         b.licensePlates = bike.getLicensePlates();
         b.type = bike.getType();
-        b.price = bike.getPrice();
+        b.depositCost = bike.getDepositCost();
         b.status = bike.getStatus();
         b.currentRentalTx = bike.getCurrentRentalTx();
 

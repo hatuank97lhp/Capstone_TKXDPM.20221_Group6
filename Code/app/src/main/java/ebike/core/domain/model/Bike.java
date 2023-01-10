@@ -25,6 +25,10 @@ public class Bike {
         this.status = rentalBikeStatus;
     }
 
+    public double getDepositCost() {
+        return this.price * 0.4;
+    }
+
     public RentalBikeStatus getStatus() {
         return status;
     }

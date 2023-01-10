@@ -8,7 +8,7 @@ public class BikePreviewOutput {
     public String licensePlates;
     public Integer currentBattery;
     public BikeType type;
-    public Integer price;
+    public Double depositCost;
     public RentalBikeStatus status;
     public Integer currentRentalTx;
 }
