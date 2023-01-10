@@ -1,13 +1,13 @@
 package ebike.core.domain.model;
 
-public class DockingStation {
+public class DockingStationEnity implements Entity {
     private Integer id;
     private String name;
     private Integer area;
     private String address;
     private Integer dockCapacity;
 
-    public DockingStation(Integer id, String name, Integer area, String address, Integer dockCapacity) {
+    public DockingStationEnity(Integer id, String name, Integer area, String address, Integer dockCapacity) {
         this.id = id;
         this.name = name;
         this.area = area;

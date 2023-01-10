@@ -2,7 +2,7 @@ package ebike.core.domain.model;
 
 import java.util.Date;
 
-public class CreditCard {
+public class CreditCardEntity implements Entity {
     private int id;
     private String cardHolderName;
     private String cardNumber;
@@ -10,7 +10,8 @@ public class CreditCard {
     private Date expirationDate;
     private String code;
 
-    public CreditCard(int id, String cardHolderName, String cardNumber, String bank, Date expirationDate, String code) {
+    public CreditCardEntity(int id, String cardHolderName, String cardNumber, String bank, Date expirationDate,
+            String code) {
         this.id = id;
         this.cardHolderName = cardHolderName;
         this.cardNumber = cardNumber;

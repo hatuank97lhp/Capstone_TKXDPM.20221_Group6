@@ -4,7 +4,7 @@ import java.util.Date;
 
 import ebike.core.domain.model.def.RentalBikePolicy;
 
-public class RentalTx {
+public class RentalTxEntity implements Entity {
     private Integer id;
     private Date startAt;
     private Date endAt;
@@ -17,7 +17,8 @@ public class RentalTx {
     private Integer paymentTxRent;
     private Integer paymentTxReturn;
 
-    public RentalTx(Integer id, Date startAt, Date endAt, Integer fromDock, Integer toDock, RentalBikePolicy rentPolicy,
+    public RentalTxEntity(Integer id, Date startAt, Date endAt, Integer fromDock, Integer toDock,
+            RentalBikePolicy rentPolicy,
             Integer bikeId, Integer userId, Integer paymentTxRent, Integer paymentTxReturn) {
         this.id = id;
         this.startAt = startAt;

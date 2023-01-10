@@ -1,9 +1,9 @@
 package ebike.core.domain.repository;
 
-import ebike.core.domain.model.RentalTx;
+import ebike.core.domain.model.RentalTxEntity;
 
 public interface IRentalTxRepo {
-    public RentalTx getRentalTxById(int id);
+    public RentalTxEntity getRentalTxById(int id);
 
-    public Integer create(RentalTx tx);
+    public Integer create(RentalTxEntity tx);
 }

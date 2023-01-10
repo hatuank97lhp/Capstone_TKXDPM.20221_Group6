@@ -2,16 +2,16 @@ package ebike.core.domain.repository;
 
 import java.util.List;
 
-import ebike.core.domain.model.Bike;
+import ebike.core.domain.model.BikeEnity;
 
 public interface IRentalBikeRepo {
-    public Bike getRentalBikeById(int id);
+    public BikeEnity getRentalBikeById(int id);
 
-    public Bike getCurrentRentalBikeOfUser(int userId);
+    public BikeEnity getCurrentRentalBikeOfUser(int userId);
 
     public int countNumAvailableBikeInDock(int dockId);
 
-    public List<Bike> getAvailableBikeInDock(int dockId);
+    public List<BikeEnity> getAvailableBikeInDock(int dockId);
 
-    public boolean save(Bike bike);
+    public boolean save(BikeEnity bike);
 }

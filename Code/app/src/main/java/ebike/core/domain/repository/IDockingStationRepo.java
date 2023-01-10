@@ -2,10 +2,10 @@ package ebike.core.domain.repository;
 
 import java.util.List;
 
-import ebike.core.domain.model.DockingStation;
+import ebike.core.domain.model.DockingStationEnity;
 
 public interface IDockingStationRepo {
-    List<DockingStation> getListDockingStation();
+    List<DockingStationEnity> getListDockingStation();
 
-    DockingStation getDockingStationById(int id);
+    DockingStationEnity getDockingStationById(int id);
 }

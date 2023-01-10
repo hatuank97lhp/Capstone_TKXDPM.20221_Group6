@@ -1,13 +1,13 @@
 package ebike.core.domain.model;
 
-public class PaymentTx {
+public class PaymentTxEntity implements Entity {
     private Integer id;
     private Integer balance;
     private Integer description;
     private Integer userId;
     private Integer creditCardId;
 
-    public PaymentTx(Integer id, Integer balance, Integer description, Integer userId, Integer creditCardId) {
+    public PaymentTxEntity(Integer id, Integer balance, Integer description, Integer userId, Integer creditCardId) {
         this.id = id;
         this.balance = balance;
         this.description = description;

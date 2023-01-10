@@ -3,7 +3,7 @@ package ebike.core.domain.model;
 import ebike.core.domain.model.def.BikeType;
 import ebike.core.domain.model.def.RentalBikeStatus;
 
-public class Bike {
+public class BikeEnity implements Entity {
     private Integer id;
     private BikeType type;
     private Integer price;
@@ -13,7 +13,7 @@ public class Bike {
     private String licensePlates;
     private RentalBikeStatus status;
 
-    public Bike(Integer id, BikeType type, Integer price, Integer currentBattery, Integer currentDock,
+    public BikeEnity(Integer id, BikeType type, Integer price, Integer currentBattery, Integer currentDock,
             Integer currentRentalTx, String licensePlates, RentalBikeStatus rentalBikeStatus) {
         this.id = id;
         this.type = type;
