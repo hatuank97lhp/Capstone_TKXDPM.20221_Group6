@@ -1,35 +1,31 @@
 package ebike.core.application.impl;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import ebike.core.application.ApplicationService;
-import ebike.core.application.IRentalBikeAppService;
+import ebike.core.application.IBikeAppService;
+import ebike.core.application.dto.output.BikeDetailOutput;
 import ebike.core.application.dto.output.BikePreviewOutput;
-import ebike.core.domain.model.Bike;
+import ebike.core.application.dto.output.CurrentRentalTxOutput;
 import ebike.core.domain.model.def.RentalBikePolicy;
 import ebike.core.domain.model.def.RentalBikeStatus;
 import ebike.core.domain.repository.IRentalBikeRepo;
+import ebike.core.domain.repository.IRentalTxRepo;
 import ebike.core.domain.service.IBarcodeService;
 
-public class RentalBikeAppService implements ApplicationService, IRentalBikeAppService {
+public class RentalBikeAppService implements ApplicationService, IBikeAppService {
 
     private IRentalBikeRepo rentalBikeRepo;
     private IBarcodeService barcodeService;
+    private IRentalTxRepo rentalTxRepo;
 
-    public RentalBikeAppService(IRentalBikeRepo rentalBikeRepo, IBarcodeService barcodeService) {
+    public RentalBikeAppService(IRentalBikeRepo rentalBikeRepo, IBarcodeService barcodeService,
+            IRentalTxRepo rentalTxRepo) {
         this.rentalBikeRepo = rentalBikeRepo;
         this.barcodeService = barcodeService;
+        this.rentalTxRepo = rentalTxRepo;
     }
 
     @Override
-    public boolean rentBike(String barcode, RentalBikePolicy policy) {
-        var bikeId = barcodeService.translateBarcodeToInteger(barcode);
-
-        if (bikeId == null) {
-            return false;
-        }
-
+    public boolean rentBike(int bikeId, RentalBikePolicy policy) {
         var bike = rentalBikeRepo.getRentalBikeById(bikeId);
 
         if (bike == null || bike.getStatus() == RentalBikeStatus.RENTING) {
@@ -46,27 +42,14 @@ public class RentalBikeAppService implements ApplicationService, IRentalBikeAppS
     }
 
     @Override
-    public List<BikePreviewOutput> getListRentalBikeInDockingStation(int dockId) {
-        var bikes = rentalBikeRepo.getAvailableBikeInDock(dockId);
+    public BikePreviewOutput getBikePreviewByBarcode(String barcode) {
+        var bikeId = barcodeService.translateBarcodeToInteger(barcode);
 
-        return bikes.stream().map(bike -> {
-            return mappingRentalBikeEntityToPreview(bike);
-        }).collect(Collectors.toList());
-    }
+        if (bikeId == null) {
+            return null;
+        }
 
-    @Override
-    public BikePreviewOutput getRentalBikeById(int id) {
-        var bike = rentalBikeRepo.getRentalBikeById(id);
-        return mappingRentalBikeEntityToPreview(bike);
-    }
-
-    @Override
-    public BikePreviewOutput getCurrentRentalBikeOfUser(int userId) {
-        var bike = rentalBikeRepo.getCurrentRentalBikeOfUser(userId);
-        return mappingRentalBikeEntityToPreview(bike);
-    }
-
-    private BikePreviewOutput mappingRentalBikeEntityToPreview(Bike bike) {
+        var bike = rentalBikeRepo.getRentalBikeById(bikeId);
         if (bike == null) {
             return null;
         }
@@ -78,7 +61,38 @@ public class RentalBikeAppService implements ApplicationService, IRentalBikeAppS
         b.type = bike.getType();
         b.depositCost = bike.getDepositCost();
         b.status = bike.getStatus();
-        b.currentRentalTx = bike.getCurrentRentalTx();
+
+        return b;
+    }
+
+    @Override
+    public BikeDetailOutput getCurrentRentalBikeDetailOfUser(int userId) {
+        var bike = rentalBikeRepo.getCurrentRentalBikeOfUser(userId);
+
+        if (bike == null) {
+            return null;
+        }
+
+        var b = new BikeDetailOutput();
+
+        b.id = bike.getId();
+        b.currentBattery = bike.getCurrentBattery();
+        b.licensePlates = bike.getLicensePlates();
+        b.type = bike.getType();
+        b.depositCost = bike.getDepositCost();
+        b.status = bike.getStatus();
+
+        var txId = bike.getCurrentRentalTx();
+
+        if (txId != null) {
+            var tx = rentalTxRepo.getRentalTxById(txId);
+            b.currentRentalTxOutput = new CurrentRentalTxOutput();
+            b.currentRentalTxOutput.id = tx.getId();
+            b.currentRentalTxOutput.currentCost = tx.estimateCurrentCost();
+            b.currentRentalTxOutput.fromDock = tx.getFromDock();
+            b.currentRentalTxOutput.startAt = tx.getStartAt();
+            b.currentRentalTxOutput.rentPolicy = tx.getRentPolicy();
+        }
 
         return b;
     }

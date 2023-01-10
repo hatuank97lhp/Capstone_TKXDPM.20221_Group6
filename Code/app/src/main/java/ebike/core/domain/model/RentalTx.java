@@ -31,6 +31,10 @@ public class RentalTx {
         this.paymentTxReturn = paymentTxReturn;
     }
 
+    public double estimateCurrentCost() {
+        return 0;
+    }
+
     public Integer getId() {
         return id;
     }
