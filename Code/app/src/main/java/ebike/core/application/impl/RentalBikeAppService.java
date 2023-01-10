@@ -7,17 +7,17 @@ import ebike.core.application.dto.output.BikePreviewOutput;
 import ebike.core.application.dto.output.CurrentRentalTxOutput;
 import ebike.core.domain.model.def.RentalBikePolicy;
 import ebike.core.domain.model.def.RentalBikeStatus;
-import ebike.core.domain.repository.IRentalBikeRepo;
+import ebike.core.domain.repository.IBikeRepo;
 import ebike.core.domain.repository.IRentalTxRepo;
 import ebike.core.domain.service.IBarcodeService;
 
 public class RentalBikeAppService implements ApplicationService, IBikeAppService {
 
-    private IRentalBikeRepo rentalBikeRepo;
+    private IBikeRepo rentalBikeRepo;
     private IBarcodeService barcodeService;
     private IRentalTxRepo rentalTxRepo;
 
-    public RentalBikeAppService(IRentalBikeRepo rentalBikeRepo, IBarcodeService barcodeService,
+    public RentalBikeAppService(IBikeRepo rentalBikeRepo, IBarcodeService barcodeService,
             IRentalTxRepo rentalTxRepo) {
         this.rentalBikeRepo = rentalBikeRepo;
         this.barcodeService = barcodeService;
@@ -26,7 +26,7 @@ public class RentalBikeAppService implements ApplicationService, IBikeAppService
 
     @Override
     public boolean rentBike(int bikeId, RentalBikePolicy policy) {
-        var bike = rentalBikeRepo.getRentalBikeById(bikeId);
+        var bike = rentalBikeRepo.getById(bikeId);
 
         if (bike == null || bike.getStatus() == RentalBikeStatus.RENTING) {
             return false;
@@ -49,7 +49,7 @@ public class RentalBikeAppService implements ApplicationService, IBikeAppService
             return null;
         }
 
-        var bike = rentalBikeRepo.getRentalBikeById(bikeId);
+        var bike = rentalBikeRepo.getById(bikeId);
         if (bike == null) {
             return null;
         }

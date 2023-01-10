@@ -4,8 +4,8 @@ import java.util.List;
 
 import ebike.core.domain.model.BikeEnity;
 
-public interface IRentalBikeRepo {
-    public BikeEnity getRentalBikeById(int id);
+public interface IBikeRepo {
+    public BikeEnity getById(int id);
 
     public BikeEnity getCurrentRentalBikeOfUser(int userId);
 

@@ -7,16 +7,16 @@ import ebike.core.application.ApplicationService;
 import ebike.core.application.IDockingStationAppService;
 import ebike.core.application.dto.output.DockStationPreviewOutput;
 import ebike.core.domain.repository.IDockingStationRepo;
-import ebike.core.domain.repository.IRentalBikeRepo;
+import ebike.core.domain.repository.IBikeRepo;
 import ebike.core.application.dto.output.BikePreviewOutput;
 import ebike.core.application.dto.output.DockStationDetailOutput;
 
 public class DockingStationAppService implements ApplicationService, IDockingStationAppService {
 
     private IDockingStationRepo dockingStationRepo;
-    private IRentalBikeRepo rentalBikeRepo;
+    private IBikeRepo rentalBikeRepo;
 
-    public DockingStationAppService(IDockingStationRepo dockingStationRepo, IRentalBikeRepo rentalBikeRepo) {
+    public DockingStationAppService(IDockingStationRepo dockingStationRepo, IBikeRepo rentalBikeRepo) {
         this.dockingStationRepo = dockingStationRepo;
         this.rentalBikeRepo = rentalBikeRepo;
     }
