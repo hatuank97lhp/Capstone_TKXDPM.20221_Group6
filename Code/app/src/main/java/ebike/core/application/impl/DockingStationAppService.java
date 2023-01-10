@@ -25,14 +25,14 @@ public class DockingStationAppService implements ApplicationService, IDockingSta
     public List<DockStationPreviewOutput> getListDockingStation() {
         var docks = dockingStationRepo.getListDockingStation();
 
-        return docks.stream().map(d -> {
+        return docks.stream().map(dock -> {
             var o = new DockStationPreviewOutput();
-            o.id = d.getId();
-            o.address = d.getAddress();
-            o.area = d.getArea();
-            o.name = d.getName();
-            o.numAvailableBike = rentalBikeRepo.countNumAvailableBikeInDock(o.id);
-            o.numAvailableDock = d.getDockCapacity() - o.numAvailableBike;
+            o.id = dock.getId();
+            o.address = dock.getAddress();
+            o.area = dock.getArea();
+            o.name = dock.getName();
+            o.numAvailableBike = dock.getNumAvailableBike();
+            o.numAvailableDock = dock.getNumAvailableDock();
             return o;
         }).collect(Collectors.toList());
     }
@@ -50,6 +50,8 @@ public class DockingStationAppService implements ApplicationService, IDockingSta
         o.address = dock.getAddress();
         o.area = dock.getArea();
         o.name = dock.getName();
+        o.numAvailableBike = dock.getNumAvailableBike();
+        o.numAvailableDock = dock.getNumAvailableDock();
 
         o.availableBikes = rentalBikeRepo.getAvailableBikeInDock(id).stream().map(bike -> {
             var b = new BikePreviewOutput();
@@ -61,9 +63,6 @@ public class DockingStationAppService implements ApplicationService, IDockingSta
             b.type = bike.getType();
             return b;
         }).collect(Collectors.toList());
-
-        o.numAvailableBike = o.availableBikes.size();
-        o.numAvailableDock = dock.getDockCapacity() - o.availableBikes.size();
 
         return o;
     }

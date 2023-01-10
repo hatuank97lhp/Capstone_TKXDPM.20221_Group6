@@ -6,13 +6,20 @@ public class DockingStationEnity implements Entity {
     private Integer area;
     private String address;
     private Integer dockCapacity;
+    private Integer numAvailableBike;
 
-    public DockingStationEnity(Integer id, String name, Integer area, String address, Integer dockCapacity) {
+    public DockingStationEnity(Integer id, String name, Integer area, String address, Integer dockCapacity,
+            Integer numAvailableBike) {
         this.id = id;
         this.name = name;
         this.area = area;
         this.address = address;
         this.dockCapacity = dockCapacity;
+        this.numAvailableBike = numAvailableBike;
+    }
+
+    public Integer getNumAvailableDock() {
+        return this.dockCapacity - this.numAvailableBike;
     }
 
     public Integer getId() {
@@ -53,6 +60,14 @@ public class DockingStationEnity implements Entity {
 
     public void setDockCapacity(Integer dockCapacity) {
         this.dockCapacity = dockCapacity;
+    }
+
+    public Integer getNumAvailableBike() {
+        return numAvailableBike;
+    }
+
+    public void setNumAvailableBike(Integer numAvailableBike) {
+        this.numAvailableBike = numAvailableBike;
     }
 
 }
