@@ -1,16 +1,14 @@
 package ebike.core.domain.model;
 
-import java.util.Date;
-
 public class CreditCardEntity implements Entity {
     private int id;
     private String cardHolderName;
     private String cardNumber;
     private String bank;
-    private Date expirationDate;
+    private String expirationDate;
     private String code;
 
-    public CreditCardEntity(int id, String cardHolderName, String cardNumber, String bank, Date expirationDate,
+    public CreditCardEntity(int id, String cardHolderName, String cardNumber, String bank, String expirationDate,
             String code) {
         this.id = id;
         this.cardHolderName = cardHolderName;
@@ -52,11 +50,11 @@ public class CreditCardEntity implements Entity {
         this.bank = bank;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 

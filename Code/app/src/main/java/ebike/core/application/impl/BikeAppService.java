@@ -5,30 +5,57 @@ import ebike.core.application.IBikeAppService;
 import ebike.core.application.dto.output.BikeDetailOutput;
 import ebike.core.application.dto.output.BikePreviewOutput;
 import ebike.core.application.dto.output.CurrentRentalTxOutput;
+import ebike.core.domain.dto.CreditCardDTO;
 import ebike.core.domain.model.def.RentalBikePolicy;
 import ebike.core.domain.model.def.RentalBikeStatus;
 import ebike.core.domain.repository.IBikeRepo;
+import ebike.core.domain.repository.ICreditCardRepo;
 import ebike.core.domain.repository.IRentalTxRepo;
+import ebike.core.domain.repository.IUserRepo;
+import ebike.core.domain.service.IBankService;
 import ebike.core.domain.service.IBarcodeService;
 
-public class RentalBikeAppService implements ApplicationService, IBikeAppService {
+public class BikeAppService implements ApplicationService, IBikeAppService {
 
-    private IBikeRepo rentalBikeRepo;
-    private IBarcodeService barcodeService;
+    private IBikeRepo bikeRepo;
     private IRentalTxRepo rentalTxRepo;
+    private ICreditCardRepo creditCardRepo;
+    private IUserRepo userRepo;
 
-    public RentalBikeAppService(IBikeRepo rentalBikeRepo, IBarcodeService barcodeService,
-            IRentalTxRepo rentalTxRepo) {
-        this.rentalBikeRepo = rentalBikeRepo;
-        this.barcodeService = barcodeService;
+    private IBarcodeService barcodeService;
+    private IBankService bankService;
+
+    public BikeAppService(IBikeRepo bikeRepo, IRentalTxRepo rentalTxRepo, ICreditCardRepo creditCardRepo,
+            IUserRepo userRepo, IBarcodeService barcodeService, IBankService bankService) {
+        this.bikeRepo = bikeRepo;
         this.rentalTxRepo = rentalTxRepo;
+        this.creditCardRepo = creditCardRepo;
+        this.userRepo = userRepo;
+        this.barcodeService = barcodeService;
+        this.bankService = bankService;
     }
 
     @Override
-    public boolean rentBike(int bikeId, RentalBikePolicy policy) {
-        var bike = rentalBikeRepo.getById(bikeId);
+    public boolean rentBike(int bikeId, RentalBikePolicy policy, int userId) {
+        var bike = bikeRepo.getById(bikeId);
 
         if (bike == null || bike.getStatus() == RentalBikeStatus.RENTING) {
+            return false;
+        }
+
+        var user = userRepo.getById(userId);
+
+        if (user == null || user.getCreditCardId() == null) {
+            return false;
+        }
+
+        var creditCard = creditCardRepo.getById(user.getCreditCardId());
+
+        var depositCost = bike.getDepositCost();
+
+        var paymentTx = bankService.processTx(creditCard, depositCost);
+
+        if (paymentTx == null) {
             return false;
         }
 
@@ -49,7 +76,7 @@ public class RentalBikeAppService implements ApplicationService, IBikeAppService
             return null;
         }
 
-        var bike = rentalBikeRepo.getById(bikeId);
+        var bike = bikeRepo.getById(bikeId);
         if (bike == null) {
             return null;
         }
@@ -67,7 +94,7 @@ public class RentalBikeAppService implements ApplicationService, IBikeAppService
 
     @Override
     public BikeDetailOutput getCurrentRentalBikeDetailOfUser(int userId) {
-        var bike = rentalBikeRepo.getCurrentRentalBikeOfUser(userId);
+        var bike = bikeRepo.getCurrentRentalBikeOfUser(userId);
 
         if (bike == null) {
             return null;

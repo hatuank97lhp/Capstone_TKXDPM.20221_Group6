@@ -4,14 +4,12 @@ public class PaymentTxEntity implements Entity {
     private Integer id;
     private Integer balance;
     private Integer description;
-    private Integer userId;
     private Integer creditCardId;
 
-    public PaymentTxEntity(Integer id, Integer balance, Integer description, Integer userId, Integer creditCardId) {
+    public PaymentTxEntity(Integer id, Integer balance, Integer description, Integer creditCardId) {
         this.id = id;
         this.balance = balance;
         this.description = description;
-        this.userId = userId;
         this.creditCardId = creditCardId;
     }
 
@@ -37,14 +35,6 @@ public class PaymentTxEntity implements Entity {
 
     public void setDescription(Integer description) {
         this.description = description;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
     }
 
     public Integer getCreditCardId() {
