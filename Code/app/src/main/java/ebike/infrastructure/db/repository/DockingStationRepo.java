@@ -39,7 +39,7 @@ public class DockingStationRepo implements Repository, IDockingStationRepo {
     public DockingStationEnity getDockingStationById(Long id) {
         try {
             var stmt = con.createStatement();
-            var result = stmt.executeQuery("select * from stations");
+            var result = stmt.executeQuery(String.format("select * from stations where id = %s", id));
 
             if (result.next()) {
                 return mappingResultSetToDockingStationEntity(result);

@@ -85,7 +85,7 @@ public class BikeAppService implements ApplicationService, IBikeAppService {
         var creditCard = creditCardRepo.getById(user.getCreditCardId());
         var paymentTx = bankService.processTx(creditCard,
                 rentalBikeCostPolicy.estimateReturnCost(bike, user, rentalTx));
-        var dock = dockingStationRepo.getDockingStationById(bike.getCurrentDockId());
+        var dock = dockingStationRepo.getDockingStationById(dockingStationId);
 
         rentalBikeService.processReturnBike(bike, dock, rentalTx, paymentTx);
 

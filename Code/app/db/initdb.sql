@@ -82,7 +82,7 @@ insert into stations (id, name, area, address, dockCapacity, numAvailableBike)
 values
 (1, "station 1", 100, "s1 abc", 100, 2),
 (2, "station 2", 100, "s2 xyz", 100, 1),
-(3, "station 1", 100, "s1 abc", 100, 2);
+(3, "station 3", 100, "s1 abc", 100, 2);
 
 insert into creditCards (id, cardHolderName, cardNumber, bank, expirationDate, code)
 values
