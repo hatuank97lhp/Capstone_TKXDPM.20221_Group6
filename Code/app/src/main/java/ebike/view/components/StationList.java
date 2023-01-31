@@ -39,7 +39,7 @@ public class StationList extends JPanel {
                 var name = new JLabel(dock.name);
                 var img = new JLabel(
                         new ImageIcon(
-                                new ImageIcon("app/resources/img/dock_img.png").getImage().getScaledInstance(120, 120,
+                                new ImageIcon("app/resources/img/station.jpg").getImage().getScaledInstance(120, 120,
                                         Image.SCALE_DEFAULT)));
                 var address = new JLabel(dock.address);
                 var area = new JLabel(String.format("Area %s m2", dock.area));

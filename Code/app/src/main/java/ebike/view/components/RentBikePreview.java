@@ -24,7 +24,7 @@ public class RentBikePreview extends JPanel {
         var depositCost = new JLabel(String.format("Deposit cost %s", bike.depositCost));
         var bikeImg = new JLabel(
                 new ImageIcon(
-                        new ImageIcon("app/resources/img/dock_img.png").getImage().getScaledInstance(120, 120,
+                        new ImageIcon("app/resources/img/bike.jpg").getImage().getScaledInstance(120, 120,
                                 Image.SCALE_DEFAULT)));
 
         var info = new JPanel();
