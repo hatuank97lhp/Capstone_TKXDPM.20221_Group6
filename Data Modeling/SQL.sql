@@ -3,29 +3,25 @@ CREATE TABLE `User` (
   `username` varchar(255),
   `password` varchar(255),
   `fullname` varchae(255),
-  `phone` varchar(55),
-  `dob` datetime,
-  `province` varchar(255),
-  `address` varchar(255),
-  `email` varchar(255),
-  `creditInfo` int
+  `creditCard` int
 );
 
-CREATE TABLE `CreditInfo` (
+CREATE TABLE `CreditCard` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `brand` varchar(255),
-  `number` varchar(55),
-  `cvv` varchar(55),
-  `name` varchar(255),
-  `expiry` datetime
+  `cardHolderName` varchar(255),
+  `cardNumber` varchar(55),
+  `bank` varchar(255),
+  `expireDate` datetime
 );
 
 CREATE TABLE `Bike` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `batteryCapicity` int,
-  `batteryCurrent` int,
-  `type` varchar(55),
-  `currentDock` int
+  `currentBattery` int,
+  `type` varchar(255),
+  `price` varchar(255),
+  `currentDock` int,
+  `currentRentalTx` int,
+  `licenseLates` varchar(255)
 );
 
 CREATE TABLE `DockingStation` (
@@ -34,7 +30,7 @@ CREATE TABLE `DockingStation` (
   `address` varchar(255),
   `area` varchar(255),
   `numAvailableBike` int,
-  `numEmptyDock` int
+  `dockCapicity` int
 );
 
 CREATE TABLE `RentalTransaction` (
@@ -45,21 +41,21 @@ CREATE TABLE `RentalTransaction` (
   `toDock` int,
   `startAt` datetime,
   `endAt` datetime,
-  `status` varchar(255),
-  `type` varchar(255),
-  `paymentTx` int
+  `rentalBikePolicy` text
 );
 
 CREATE TABLE `PaymentTransaction` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `balance` int,
-  `user` int,
-  `status` varchar(255)
+  `creditCardId` int,
+  `description` text
 );
 
-ALTER TABLE `User` ADD FOREIGN KEY (`creditInfo`) REFERENCES `CreditInfo` (`id`);
+ALTER TABLE `User` ADD FOREIGN KEY (`creditCard`) REFERENCES `CreditCard` (`id`);
 
 ALTER TABLE `Bike` ADD FOREIGN KEY (`currentDock`) REFERENCES `DockingStation` (`id`);
+
+ALTER TABLE `Bike` ADD FOREIGN KEY (`currentRentalTx`) REFERENCES `RentalTransaction` (`id`);
 
 ALTER TABLE `RentalTransaction` ADD FOREIGN KEY (`user`) REFERENCES `User` (`id`);
 
@@ -69,6 +65,4 @@ ALTER TABLE `RentalTransaction` ADD FOREIGN KEY (`fromDock`) REFERENCES `Docking
 
 ALTER TABLE `RentalTransaction` ADD FOREIGN KEY (`toDock`) REFERENCES `DockingStation` (`id`);
 
-ALTER TABLE `RentalTransaction` ADD FOREIGN KEY (`paymentTx`) REFERENCES `PaymentTransaction` (`id`);
-
-ALTER TABLE `PaymentTransaction` ADD FOREIGN KEY (`user`) REFERENCES `User` (`id`);
+ALTER TABLE `PaymentTransaction` ADD FOREIGN KEY (`creditCardId`) REFERENCES `CreditCard` (`id`);
